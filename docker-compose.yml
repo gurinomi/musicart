@@ -12,7 +12,8 @@ services:
       - 4306:3306
     volumes:
       - mysql-db:/var/lib/mysql
-  api:
+
+  api: &api
     container_name: musicart-api
     tty: true
     build:
@@ -26,6 +27,15 @@ services:
       TZ: Asia/Tokyo
     depends_on:
       - db
+
+  api_test:
+    <<: *api
+    container_name: api-test
+    environment:
+      RAILS_ENV: test
+    profiles:
+      - test_only # up -dでは起動しないようにする
+
   front:
     container_name: musicart-front
     build:
