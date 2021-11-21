@@ -1,6 +1,6 @@
-version: '3.7'
+version: "3.7"
 
-services: 
+services:
   db:
     container_name: musicart-db
     image: mysql:8.0
@@ -26,14 +26,14 @@ services:
       TZ: Asia/Tokyo
     depends_on:
       - db
-  front: 
+  front:
     container_name: musicart-front
     build:
-      context: ./front/
+      context: ./front/app/
       dockerfile: Dockerfile
     volumes:
-      - ./front/app:/usr/src/app
-    command: 'yarn dev'
+      - ./front/app:/app
+    command: "npm run dev"
     ports:
       - "8000:3000"
 volumes:
