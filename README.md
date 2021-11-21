@@ -38,6 +38,15 @@ music（ミュージシャン）とart（イラストレーター）を結びつ
    docker-compose stop
    docker-compose down
    ```
+
+## テストの実行方法
+
+1. 実行
+
+   ```
+   $ docker-compose run --rm api_test sh
+   $ bundle exec rspec
+   ```
 ## データを確認する方法
 
 開発用の設定情報
