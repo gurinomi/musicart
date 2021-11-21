@@ -29,10 +29,10 @@ services:
   front:
     container_name: musicart-front
     build:
-      context: ./front/
+      context: ./front/app/
       dockerfile: Dockerfile
     volumes:
-      - ./front/app:/usr/src/app
+      - ./front/app:/app
     command: "npm run dev"
     ports:
       - "8000:3000"

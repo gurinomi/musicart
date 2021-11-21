@@ -1,0 +1,8 @@
+FROM node:14-alpine
+
+ENV APP_PATH /app
+
+RUN mkdir $APP_PATH
+WORKDIR $APP_PATH
+
+COPY . $APP_PATH
