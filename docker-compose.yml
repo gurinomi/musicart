@@ -10,6 +10,8 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - 4306:3306
+    env_file:
+      - .env
     volumes:
       - mysql-db:/var/lib/mysql
 
@@ -25,6 +27,8 @@ services:
       - ./api:/app
     environment:
       TZ: Asia/Tokyo
+    env_file:
+      - .env
     depends_on:
       - db
 
@@ -33,6 +37,8 @@ services:
     container_name: api-test
     environment:
       RAILS_ENV: test
+    env_file:
+      - .env.test
     profiles:
       - test_only # up -dでは起動しないようにする
 
