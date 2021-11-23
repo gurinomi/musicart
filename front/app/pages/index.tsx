@@ -4,8 +4,8 @@ export default function Home({ messageData }) {
   const { message } = messageData;
 
   return (
-    <div>
-      <h1>{message}</h1>
+    <div className="container mx-auto">
+      <h1 className="text-4xl uppercase">{message}</h1>
     </div>
   );
 }
