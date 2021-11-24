@@ -1,0 +1,60 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:3.0.2-node-browsers
+        environment:
+          - RAILS_ENV: test
+      - image: circleci/mysql:8.0
+        environment:
+          - MYSQL_USER: musicart
+          - MYSQL_PASSWORD: password
+          - MYSQL_ROOT_PASSWORD: password
+          - MYSQL_DATABASE: myapp_test
+
+    working_directory: ~/project
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+            - v1-dependencies-
+
+      - run:
+          name: Install dependencies
+          working_directory: api
+          command: |
+            gem install bundler
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "api/Gemfile.lock" }}
+
+      - run:
+          name: Database Setup
+          working_directory: api
+          command: |
+            bundle exec rake db:create
+
+      - run:
+          name: Rubocop
+          working_directory: api
+          command: bundle exec rubocop
+
+      - run:
+          name: Run rspec
+          working_directory: api
+          command: |
+            bundle exec rspec --format progress \
+                              --out /tmp/test-results/rspec.xml \
+                              --format progress
+
+      - store_test_results:
+          path: /tmp/test-results
