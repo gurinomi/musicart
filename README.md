@@ -16,20 +16,12 @@ music（ミュージシャン）とart（イラストレーター）を結びつ
    $ docker-compose run api rails db:create
    ```
 
-3. node_modulesを作成する
-
-   ```
-   $ cd front
-   $ cd app
-   $ npm install
-   ```
-
-4. コンテナを起動する
+3. コンテナを起動する
 
    ```sh
    docker-compose up -d
 
-   # docker-compose ps で、3コンテナ(app, db, front)が起動していることを確認する
+   # docker-compose ps で、2コンテナ(app, db)が起動していることを確認する
    ```
 
    落とすとき

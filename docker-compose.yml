@@ -42,15 +42,6 @@ services:
     profiles:
       - test_only # up -dでは起動しないようにする
 
-  front:
-    container_name: musicart-front
-    build:
-      context: .
-      dockerfile: ./front/app/Dockerfile
-    volumes:
-      - ./front/app:/app
-    ports:
-      - "8000:3000"
 volumes:
   mysql-db:
     driver: local
